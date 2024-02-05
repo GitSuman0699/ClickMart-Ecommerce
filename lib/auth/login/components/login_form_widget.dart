@@ -15,9 +15,9 @@ class _LoginFormWidgetState extends ConsumerState<LoginFormWidget> {
   // late final User currentUser
 
   final fullName = TextEditingController();
-  final email = TextEditingController();
+  final email = TextEditingController(text: "abc@gmail.com");
   final mobile = TextEditingController();
-  final password = TextEditingController();
+  final password = TextEditingController(text: "password");
 
   final _formKey = GlobalKey<FormState>();
 

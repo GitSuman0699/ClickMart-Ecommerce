@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_project/utils/exceptions/firebase_auth_exceptions.dart';
+import 'package:flutter/services.dart';
 
 class AuthenticationService {
   static AuthenticationService get instance => AuthenticationService();
