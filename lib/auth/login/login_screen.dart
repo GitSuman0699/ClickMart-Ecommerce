@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'components/signup_form_widget.dart';
-import 'components/signup_header.dart';
+import 'components/login_form_widget.dart';
+import 'components/login_header.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<SignUpScreen> createState() => _SignUpScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _SignUpScreenState extends State<SignUpScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return const SafeArea(
@@ -18,8 +18,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
         body: SingleChildScrollView(
           child: Column(
             children: <Widget>[
-              SignUpHeader(),
-              SignUpFormWidget(),
+              LoginHeader(),
+              LoginFormWidget(),
             ],
           ),
         ),
