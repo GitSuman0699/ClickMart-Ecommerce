@@ -2,6 +2,8 @@ import 'package:firebase_project/auth/signup/signup_screen.dart';
 import 'package:firebase_project/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
 
+import 'auth/login/login_screen.dart';
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -14,7 +16,7 @@ class MyApp extends StatelessWidget {
       theme: AAppTheme.lightTheme,
       darkTheme: AAppTheme.darkTheme,
       debugShowCheckedModeBanner: false,
-      home: const SignUpScreen(),
+      home: const LoginScreen(),
     );
   }
 }

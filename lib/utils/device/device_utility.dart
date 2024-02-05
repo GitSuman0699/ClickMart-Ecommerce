@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-class TDeviceUtils {
+class AppDeviceUtils {
   static void hideKeyboard(BuildContext context) {
     FocusScope.of(context).requestFocus(FocusNode());
   }
@@ -31,8 +31,8 @@ class TDeviceUtils {
         enable ? SystemUiMode.immersiveSticky : SystemUiMode.edgeToEdge);
   }
 
-  static double getScreenHeight() {
-    return MediaQuery.of(Get.context!).size.height;
+  static double getScreenHeight(BuildContext context) {
+    return MediaQuery.of(context).size.height;
   }
 
   static double getScreenWidth(BuildContext context) {

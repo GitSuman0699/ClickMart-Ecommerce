@@ -39,15 +39,15 @@ class THelperFunctions {
     }
   }
 
-  static void showSnackBar(String message) {
-    ScaffoldMessenger.of(Get.context!).showSnackBar(
+  static void showSnackBar(String message, BuildContext context) {
+    ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(message)),
     );
   }
 
-  static void showAlert(String title, String message) {
+  static void showAlert(String title, String message, BuildContext context) {
     showDialog(
-      context: Get.context!,
+      context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(title),
@@ -94,7 +94,8 @@ class THelperFunctions {
     return MediaQuery.of(Get.context!).size.width;
   }
 
-  static String getFormattedDate(DateTime date, {String format = 'dd MMM yyyy'}) {
+  static String getFormattedDate(DateTime date,
+      {String format = 'dd MMM yyyy'}) {
     return DateFormat(format).format(date);
   }
 
@@ -105,7 +106,8 @@ class THelperFunctions {
   static List<Widget> wrapWidgets(List<Widget> widgets, int rowSize) {
     final wrappedList = <Widget>[];
     for (var i = 0; i < widgets.length; i += rowSize) {
-      final rowChildren = widgets.sublist(i, i + rowSize > widgets.length ? widgets.length : i + rowSize);
+      final rowChildren = widgets.sublist(
+          i, i + rowSize > widgets.length ? widgets.length : i + rowSize);
       wrappedList.add(Row(children: rowChildren));
     }
     return wrappedList;
