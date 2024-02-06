@@ -1,7 +1,9 @@
+import 'package:firebase_project/auth/otp/otp_screen.dart';
 import 'package:firebase_project/auth/signup/signup_controller.dart';
 import 'package:firebase_project/utils/device/device_utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../authentication_service.dart';
 import 'login_footer.dart';
 
 class LoginFormWidget extends ConsumerStatefulWidget {
@@ -17,7 +19,7 @@ class _LoginFormWidgetState extends ConsumerState<LoginFormWidget> {
 
   final fullName = TextEditingController();
   final email = TextEditingController(text: "abc@gmail.com");
-  final mobile = TextEditingController();
+  final mobile = TextEditingController(text: "+918016086948");
   final password = TextEditingController(text: "password");
 
   final _formKey = GlobalKey<FormState>();
@@ -90,11 +92,18 @@ class _LoginFormWidgetState extends ConsumerState<LoginFormWidget> {
               child: ElevatedButton(
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    Map<String, dynamic> userData = {
-                      'email': email.text.trim(),
-                      'password': password.text.trim(),
-                    };
-                    ref.read(loginUser(userData).future).then((value) => null);
+                    // AuthenticationService.instance.signInWithEmailAndPassword(
+                    //     email.text.trim(), password.text.trim());
+                    AuthenticationService.instance.phoneAuthentication(
+                      phoneNumber: mobile.text.trim(),
+                      ref: ref,
+                    );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (BuildContext context) => const OtpScreen(),
+                      ),
+                    );
                   } else {}
                 },
                 child: const Text("LOGIN"),

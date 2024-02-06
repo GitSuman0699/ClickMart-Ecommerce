@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_project/auth/otp/otp_screen.dart';
 import 'package:firebase_project/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'auth/login/login_screen.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
           }
           // new user or logged out user will be redirected to login screen
           return const LoginScreen();
+          // return const OtpScreen();
         },
       ),
     );

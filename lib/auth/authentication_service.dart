@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_project/utils/exceptions/firebase_auth_exceptions.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
+import 'login/login_controller.dart';
 
 class AuthenticationService {
   static AuthenticationService get instance => AuthenticationService();
@@ -36,6 +39,45 @@ class AuthenticationService {
     } catch (e) {
       throw e.toString(); // Return an error message
     }
+  }
+
+  Future<void> phoneAuthentication(
+      {required String phoneNumber, required WidgetRef ref}) async {
+    try {
+      await _auth.verifyPhoneNumber(
+        phoneNumber: phoneNumber,
+        verificationCompleted: (PhoneAuthCredential credential) async {
+          await _auth.signInWithCredential(credential);
+        },
+        verificationFailed: (FirebaseAuthException e) {
+          AppFirebaseAuthException(e.code);
+        },
+        codeSent: (String verificationId, int? resendToken) {
+          ref
+              .read(verificationIdProvider.notifier)
+              .update((state) => verificationId);
+        },
+        codeAutoRetrievalTimeout: (String verificationId) {
+          ref
+              .read(verificationIdProvider.notifier)
+              .update((state) => verificationId);
+        },
+      );
+    } on FirebaseAuthException catch (e) {
+      throw AppFirebaseAuthException(e.code);
+    } catch (e) {
+      throw e.toString(); // Return an error message
+    }
+  }
+
+  Future<bool> verifyOTP(
+      {required String verificationId, required String otp}) async {
+    final response =
+        await _auth.signInWithCredential(PhoneAuthProvider.credential(
+      verificationId: verificationId,
+      smsCode: otp,
+    ));
+    return response.user != null ? true : false;
   }
 
   Future<UserCredential> signInWithGoogle() async {
