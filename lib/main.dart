@@ -3,10 +3,7 @@ import 'package:firebase_project/firebase_options.dart';
 import 'package:firebase_project/utils/constants/app_routes.dart';
 import 'package:firebase_project/utils/local_storage/storage.dart';
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-=======
->>>>>>> ba7a797 (suman)
 import 'app.dart';
 
 void main() async {
