@@ -17,7 +17,7 @@ class OtpScreen extends ConsumerStatefulWidget {
 class _OtpScreenState extends ConsumerState<OtpScreen> {
   final _formKey = GlobalKey<FormState>();
 
-  final otp = TextEditingController();
+  final otp = TextEditingController(text: "654321");
 
   @override
   Widget build(BuildContext context) {

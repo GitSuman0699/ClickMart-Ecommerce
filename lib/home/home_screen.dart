@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_project/auth/authentication_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -10,6 +11,7 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _HomeScreenState extends ConsumerState<HomeScreen> {
+  User? user;
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -25,6 +27,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 Icons.logout_outlined,
               ),
             )
+          ],
+        ),
+        body: const Column(
+          children: [
+            // Text(user!.uid),
           ],
         ),
       ),
