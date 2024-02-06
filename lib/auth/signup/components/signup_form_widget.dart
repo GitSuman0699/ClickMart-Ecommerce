@@ -3,6 +3,8 @@ import 'package:firebase_project/utils/device/device_utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../authentication_service.dart';
+
 class SignUpFormWidget extends ConsumerStatefulWidget {
   const SignUpFormWidget({super.key});
 
@@ -87,15 +89,12 @@ class _SignUpFormWidgetState extends ConsumerState<SignUpFormWidget> {
             SizedBox(
               width: AppDeviceUtils.getScreenWidth(context),
               child: ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState!.validate()) {
-                    Map<String, dynamic> userData = {
-                      'email': email.text.trim(),
-                      'password': password.text.trim(),
-                    };
-                    ref
-                        .read(resigterUser(userData).future)
-                        .then((value) => null);
+                    AuthenticationService.instance.signUpWithEmailAndPassword(
+                      email.text.trim(),
+                      password.text.trim(),
+                    );
                   } else {}
                 },
                 child: const Text("SIGNUP"),
