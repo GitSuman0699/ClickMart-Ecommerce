@@ -67,7 +67,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '269095502629',
     projectId: 'fir-project-5fc81',
     storageBucket: 'fir-project-5fc81.appspot.com',
-    androidClientId: '269095502629-oftl0psl2221oe7op55562nhbbmbc6r8.apps.googleusercontent.com',
+    androidClientId: '269095502629-eevv3tpka1sm906et88jint6ujplcguc.apps.googleusercontent.com',
     iosClientId: '269095502629-ef5g3gpnr6k5hmpadl3rp7j20q8f5nir.apps.googleusercontent.com',
     iosBundleId: 'com.example.firebaseProject',
   );
@@ -78,7 +78,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '269095502629',
     projectId: 'fir-project-5fc81',
     storageBucket: 'fir-project-5fc81.appspot.com',
-    androidClientId: '269095502629-oftl0psl2221oe7op55562nhbbmbc6r8.apps.googleusercontent.com',
+    androidClientId: '269095502629-eevv3tpka1sm906et88jint6ujplcguc.apps.googleusercontent.com',
     iosClientId: '269095502629-k2ftl5vuod7idte4b9oj8320bnfm13qq.apps.googleusercontent.com',
     iosBundleId: 'com.example.firebaseProject.RunnerTests',
   );

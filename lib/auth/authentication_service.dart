@@ -58,9 +58,7 @@ class AuthenticationService {
               .update((state) => verificationId);
         },
         codeAutoRetrievalTimeout: (String verificationId) {
-          ref
-              .read(verificationIdProvider.notifier)
-              .update((state) => verificationId);
+          null;
         },
       );
     } on FirebaseAuthException catch (e) {
@@ -108,6 +106,8 @@ class AuthenticationService {
   Future signOut() async {
     await GoogleSignIn().signOut();
     await _auth.signOut();
+    User? firebaseUser;
+    print(firebaseUser);
   }
 
   // Get the current user

@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final verificationIdProvider = StateProvider.autoDispose((ref) {
+final verificationIdProvider = StateProvider((ref) {
   return "";
 });
