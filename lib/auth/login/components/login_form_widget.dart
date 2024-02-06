@@ -2,6 +2,7 @@ import 'package:firebase_project/auth/signup/signup_controller.dart';
 import 'package:firebase_project/utils/device/device_utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'login_footer.dart';
 
 class LoginFormWidget extends ConsumerStatefulWidget {
   const LoginFormWidget({super.key});
@@ -98,7 +99,9 @@ class _LoginFormWidgetState extends ConsumerState<LoginFormWidget> {
                 },
                 child: const Text("LOGIN"),
               ),
-            )
+            ),
+            const SizedBox(height: 20),
+            const LoginFooter()
           ],
         ),
       ),
