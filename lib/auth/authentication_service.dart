@@ -106,8 +106,7 @@ class AuthenticationService {
   Future signOut() async {
     await GoogleSignIn().signOut();
     await _auth.signOut();
-    User? firebaseUser;
-    print(firebaseUser);
+    // User? firebaseUser;
   }
 
   // Get the current user

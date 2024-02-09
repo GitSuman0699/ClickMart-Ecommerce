@@ -1,4 +1,3 @@
-import 'package:firebase_project/auth/signup/signup_controller.dart';
 import 'package:firebase_project/utils/device/device_utility.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
