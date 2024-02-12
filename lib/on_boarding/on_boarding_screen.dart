@@ -4,6 +4,7 @@ import 'package:firebase_project/utils/common_widgets/app_tittle.dart';
 import 'package:firebase_project/utils/constants/colors.dart';
 import 'package:firebase_project/utils/constants/font_styles.dart';
 import 'package:firebase_project/utils/device/device_utility.dart';
+import 'package:firebase_project/utils/local_storage/storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -66,11 +67,14 @@ class OnBoarding extends StatelessWidget {
                       getAppDesc(),
                       AppButton.button(
                         text: 'Get Started',
-                        color: AppColors.secondary,
+                        color: AppColors.white,
                         width: 240.0.w,
                         height: 40.0.h,
                         textColor: AppColors.black,
                         onTap: () {
+                          Prefs.setBool("visited_onboarding", true);
+                          debugPrint(
+                              Prefs.getBool("visited_onboarding").toString());
                           Navigator.pushNamed(context, Login.routeName);
                         },
                       ),

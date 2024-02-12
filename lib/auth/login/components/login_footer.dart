@@ -14,7 +14,7 @@ class LoginFooter extends StatelessWidget {
           await AuthenticationService.instance.signInWithGoogle();
         },
         icon: const Icon(Icons.g_mobiledata_rounded),
-        label: const Text("SignIn With Google"),
+        label: const Text("Sign-In with Google"),
       ),
     );
   }
