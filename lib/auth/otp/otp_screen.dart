@@ -56,7 +56,8 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                                 .verifyOTP(
                                     verificationId:
                                         ref.read(verificationIdProvider),
-                                    otp: otp.text.trim())
+                                    otp: otp.text.trim(),
+                                    context: context)
                                 .then((value) {
                               value
                                   ? Navigator.push(

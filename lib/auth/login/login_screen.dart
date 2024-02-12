@@ -3,6 +3,7 @@ import 'package:firebase_project/utils/common_widgets/gradient_header.dart';
 import 'package:firebase_project/utils/constants/colors.dart';
 import 'package:firebase_project/utils/constants/font_styles.dart';
 import 'package:firebase_project/utils/device/device_utility.dart';
+import 'package:firebase_project/utils/device/ui_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,19 +25,6 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: _buildBody(context, formKey),
-
-      // SingleChildScrollView(
-      //   child: Column(
-      //     children: <Widget>[
-      //       _buildHeader(),
-      //       Text(
-      //         'Please enter your email and password to verify your account',
-      //         style: FontStyles.montserratRegular17(),
-      //       ),
-      //       const LoginFormWidget(),
-      //     ],
-      //   ),
-      // ),
     );
   }
 
@@ -68,17 +56,13 @@ class _LoginScreenState extends State<LoginScreen> {
             'Please enter your email and password to verify your account',
             style: FontStyles.montserratRegular17(),
           ),
-          SizedBox(height: 30.0.h),
+          UIHelper.verticalSpaceLarge(),
           _buildFormWidget(context, formKey),
-          // SizedBox(height: 5.0.h),
           _buildForgotPassword(),
-          // SizedBox(height: 5.0.h),
-
-          // SizedBox(height: 30.0.h),
           _buildLoginButton(context, formKey),
-          SizedBox(height: 10.0.h),
+          UIHelper.verticalSpaceSmall(),
           _buildOrWidget(),
-          SizedBox(height: 10.0.h),
+          UIHelper.verticalSpaceSmall(),
           _buildLoginFooter()
         ],
       ),

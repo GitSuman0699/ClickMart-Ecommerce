@@ -1,10 +1,14 @@
+import 'package:firebase_project/utils/common_widgets/dialog_components.dart';
+import 'package:flutter/material.dart';
+
 /// Custom exception class to handle various Firebase authentication-related errors.
 class AppFirebaseAuthException implements Exception {
   /// The error code associated with the exception.
   final String code;
+  final BuildContext? context;
 
   /// Constructor that takes an error code.
-  AppFirebaseAuthException(this.code);
+  AppFirebaseAuthException(this.code, [this.context]);
 
   /// Get the corresponding error message based on the error code.
   String get message {
@@ -93,6 +97,8 @@ class AppFirebaseAuthException implements Exception {
         return 'Invalid login credentials.';
       case 'invalid-phobe-number':
         return 'Phone number is invalid';
+      case 'invalid-verification-code"':
+        return DialogComponents.snackBar(context!, 'Invalid OTP');
 
       default:
         return 'An unexpected authentication error occurred. Please try again.';
