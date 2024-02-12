@@ -45,7 +45,7 @@ class AuthenticationService {
       {required String phoneNumber, required WidgetRef ref}) async {
     try {
       await _auth.verifyPhoneNumber(
-        phoneNumber: phoneNumber,
+        phoneNumber: "+91$phoneNumber",
         verificationCompleted: (PhoneAuthCredential credential) async {
           await _auth.signInWithCredential(credential);
         },
