@@ -1,16 +1,30 @@
 import 'package:firebase_project/SignUp/sign_up.dart';
+import 'package:firebase_project/auth/authentication_service.dart';
+import 'package:firebase_project/auth/login/login_controller.dart';
 import 'package:firebase_project/login/phone_screen.dart';
 import 'package:firebase_project/utils/common_widgets/app_button.dart';
 import 'package:firebase_project/utils/common_widgets/gradient_header.dart';
 import 'package:firebase_project/utils/constants/colors.dart';
 import 'package:firebase_project/utils/constants/font_styles.dart';
+import 'package:firebase_project/utils/device/device_utility.dart';
+import 'package:firebase_project/utils/device/ui_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:otp_text_field/otp_text_field.dart';
 
-class Verification extends StatelessWidget {
+class Verification extends ConsumerStatefulWidget {
   const Verification({super.key});
   static const String routeName = 'verification';
+
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() => _VerificationState();
+}
+
+class _VerificationState extends ConsumerState<Verification> {
+  final formKey = GlobalKey<FormBuilderState>();
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +38,6 @@ class Verification extends StatelessWidget {
         children: [
           _buildHeader(),
           _buildWidget(context),
-          SizedBox(height: 30.0.h),
-          _buildContinueButton(context),
-          SizedBox(height: 30.0.h),
-          _buildResendCodeButton(context),
         ],
       ),
     );
@@ -50,7 +60,7 @@ class Verification extends StatelessWidget {
             'Please enter code send to',
             style: FontStyles.montserratRegular17(),
           ),
-          SizedBox(height: 20.0.h),
+          UIHelper.verticalSpaceMedium(),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -70,35 +80,76 @@ class Verification extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 30.0.h),
+          UIHelper.verticalSpaceLarge(),
           _buildOTPField(context),
+          UIHelper.verticalSpaceLarge(),
+          _buildContinueButton(context),
+          UIHelper.verticalSpaceMedium(),
+          _buildResendCodeButton(context),
         ],
       ),
     );
   }
 
   Widget _buildOTPField(BuildContext context) {
-    return OTPTextField(
-      textFieldAlignment: MainAxisAlignment.spaceEvenly,
-      otpFieldStyle: OtpFieldStyle(focusBorderColor: Colors.green),
-      width: MediaQuery.of(context).size.width,
-      keyboardType: TextInputType.number,
-      length: 4,
-      style: FontStyles.montserratBold25(),
+    return FormBuilder(
+      key: formKey,
+      child: FormBuilderTextField(
+        style: FontStyles.montserratRegular14(),
+        name: 'otp',
+        decoration: InputDecoration(
+          labelText: '6-digit OTP',
+          labelStyle: FontStyles.montserratRegular14(),
+          prefixStyle: FontStyles.montserratRegular14(),
+          prefixIcon: const Icon(
+            Icons.phone_android_outlined,
+            color: AppColors.primary,
+          ),
+        ),
+        onChanged: (code) {
+          if (code!.length == 6) {
+            FocusScope.of(context).requestFocus(FocusNode());
+          }
+        },
+        validator: FormBuilderValidators.compose([
+          FormBuilderValidators.required(errorText: 'OTP is requied'),
+          FormBuilderValidators.numeric(),
+          FormBuilderValidators.maxLength(6,
+              errorText: 'OTP should be of 6 digit'),
+          FormBuilderValidators.minLength(6,
+              errorText: 'OTP should be of 6 digit'),
+        ]),
+        keyboardType: TextInputType.number,
+      ),
     );
   }
 
   Widget _buildContinueButton(BuildContext context) {
     return Center(
       child: AppButton.button(
-          width: 327.w,
-          height: 45.0.h,
-          color: AppColors.primary,
-          text: 'Continue',
-          textColor: AppColors.white,
-          onTap: () {
-            Navigator.pushReplacementNamed(context, SignUp.routeName);
-          }),
+        width: AppDeviceUtils.getScreenWidth(context),
+        color: AppColors.primary,
+        text: 'Continue',
+        textColor: AppColors.white,
+        onTap: () {
+          if (formKey.currentState!.saveAndValidate()) {
+            AuthenticationService.instance
+                .verifyOTP(
+                    verificationId: ref.read(verificationIdProvider),
+                    otp: formKey.currentState!.value['otp'],
+                    context: context)
+                .then(
+              (value) {
+                if (value == true) {
+                  Navigator.pushReplacementNamed(context, SignUp.routeName);
+                } else {
+                  debugPrint("Invalid OTP");
+                }
+              },
+            );
+          }
+        },
+      ),
     );
   }
 

@@ -2,6 +2,7 @@ import 'package:firebase_project/auth/otp/otp_screen.dart';
 import 'package:firebase_project/utils/constants/colors.dart';
 import 'package:firebase_project/utils/constants/font_styles.dart';
 import 'package:firebase_project/utils/device/device_utility.dart';
+import 'package:firebase_project/utils/device/ui_helper.dart';
 import 'package:firebase_project/utils/validators/validation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -58,7 +59,7 @@ class _LoginFormWidgetState extends ConsumerState<LoginFormWidget> {
             ]),
             keyboardType: TextInputType.emailAddress,
           ),
-          SizedBox(height: 10.0.h),
+          UIHelper.verticalSpaceSmall(),
           FormBuilderTextField(
             style: FontStyles.montserratRegular14(),
             name: 'password',

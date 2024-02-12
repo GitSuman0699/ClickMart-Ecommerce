@@ -1,12 +1,14 @@
 import 'package:firebase_project/auth/authentication_service.dart';
 import 'package:firebase_project/auth/login/login_screen.dart';
 import 'package:firebase_project/login/verification_screen.dart';
-import 'package:firebase_project/login/widgets/international_input_field.dart';
+import 'package:firebase_project/login/widgets/phone_input.dart';
 import 'package:firebase_project/utils/common_widgets/app_button.dart';
 import 'package:firebase_project/utils/common_widgets/gradient_header.dart';
+import 'package:firebase_project/utils/common_widgets/dialog_components.dart';
 import 'package:firebase_project/utils/constants/colors.dart';
 import 'package:firebase_project/utils/constants/font_styles.dart';
 import 'package:firebase_project/utils/device/device_utility.dart';
+import 'package:firebase_project/utils/device/ui_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -58,11 +60,11 @@ class _LoginState extends ConsumerState<Login> {
             'Please enter your phone number to verify your account',
             style: FontStyles.montserratRegular17(),
           ),
-          SizedBox(height: 30.0.h),
+          UIHelper.verticalSpaceLarge(),
           _buildPhoneField(context, formKey),
-          SizedBox(height: 30.0.h),
+          UIHelper.verticalSpaceLarge(),
           _buildSendButton(context, formKey),
-          SizedBox(height: 20.0.h),
+          UIHelper.verticalSpaceMedium(),
           _buildSkipButton()
         ],
       ),
@@ -81,16 +83,13 @@ class _LoginState extends ConsumerState<Login> {
         color: AppColors.primary,
         onTap: () {
           if (formKey.currentState!.saveAndValidate()) {
+            DialogComponents.loaderShow(context);
             debugPrint(formKey.currentState?.value["mobile"].toString().trim());
-            AuthenticationService.instance
-                .phoneAuthentication(
-              phoneNumber:
-                  formKey.currentState!.value["mobile"].toString().trim(),
-              ref: ref,
-            )
-                .then((value) {
-              Navigator.of(context).pushNamed(Verification.routeName);
-            });
+            AuthenticationService.instance.phoneAuthentication(
+                phoneNumber:
+                    formKey.currentState!.value["mobile"].toString().trim(),
+                ref: ref,
+                context: context);
           }
         },
         text: 'Send Code',
