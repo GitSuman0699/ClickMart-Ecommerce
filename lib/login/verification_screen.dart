@@ -3,6 +3,7 @@ import 'package:firebase_project/auth/authentication_service.dart';
 import 'package:firebase_project/auth/login/login_controller.dart';
 import 'package:firebase_project/login/phone_screen.dart';
 import 'package:firebase_project/utils/common_widgets/app_button.dart';
+import 'package:firebase_project/utils/common_widgets/dialog_components.dart';
 import 'package:firebase_project/utils/common_widgets/gradient_header.dart';
 import 'package:firebase_project/utils/constants/colors.dart';
 import 'package:firebase_project/utils/constants/font_styles.dart';
@@ -133,6 +134,8 @@ class _VerificationState extends ConsumerState<Verification> {
         textColor: AppColors.white,
         onTap: () {
           if (formKey.currentState!.saveAndValidate()) {
+            DialogComponents.loaderShow(context);
+
             AuthenticationService.instance
                 .verifyOTP(
                     verificationId: ref.read(verificationIdProvider),
@@ -141,6 +144,8 @@ class _VerificationState extends ConsumerState<Verification> {
                 .then(
               (value) {
                 if (value == true) {
+                  DialogComponents.loaderStop(context);
+
                   Navigator.pushReplacementNamed(context, SignUp.routeName);
                 } else {
                   debugPrint("Invalid OTP");

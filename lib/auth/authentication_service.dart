@@ -10,6 +10,7 @@ import 'login/login_controller.dart';
 class AuthenticationService {
   static AuthenticationService get instance => AuthenticationService();
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  Stream<User?> get currentUser => _auth.authStateChanges();
 
   // Sign up with email and password
   Future<UserCredential> signUpWithEmailAndPassword(

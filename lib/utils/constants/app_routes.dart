@@ -17,6 +17,7 @@ import 'package:firebase_project/home/home_screen.dart';
 import 'package:firebase_project/login/phone_screen.dart';
 import 'package:firebase_project/login/verification_screen.dart';
 import 'package:firebase_project/on_boarding/on_boarding_screen.dart';
+import 'package:firebase_project/splash/splash_screen.dart';
 import 'package:firebase_project/utils/local_storage/storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -24,6 +25,7 @@ import 'package:flutter/services.dart';
 class AppRoutes {
   static Map<String, Widget Function(dynamic)> appRoutes = {
     '/': (_) => const OnBoarding(),
+    SplashScreen.routeName: (_) => const SplashScreen(),
     Login.routeName: (_) => const Login(),
     Verification.routeName: (_) => const Verification(),
     HomeScreen.routeName: (_) => const HomeScreen(),
