@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_project/firebase_options.dart';
 import 'package:firebase_project/login/phone_screen.dart';
+import 'package:firebase_project/main.dart';
+import 'package:firebase_project/splash/splash_screen.dart';
 import 'package:firebase_project/utils/constants/app_routes.dart';
 import 'package:firebase_project/utils/local_storage/storage.dart';
 import 'package:firebase_project/utils/theme/theme.dart';
@@ -18,26 +20,14 @@ class MyApp extends ConsumerStatefulWidget {
 }
 
 class _MyAppState extends ConsumerState<MyApp> {
-  void loadFirebase() async {
-    await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform);
-  }
-
   @override
   void initState() {
     super.initState();
-    debugPrint(Prefs.getBool("visited_onboarding").toString());
-    // loadStorage();
-    loadFirebase();
-    AppRoutes.setSystemStyling();
   }
 
   @override
   void dispose() {
     super.dispose();
-    loadFirebase();
-    // loadStorage();
-    AppRoutes.setSystemStyling();
   }
 
   @override
@@ -60,8 +50,9 @@ class _MyAppState extends ConsumerState<MyApp> {
           theme: AAppTheme.lightTheme,
           darkTheme: AAppTheme.darkTheme,
           debugShowCheckedModeBanner: false,
-          initialRoute:
-              Prefs.getBool("visited_onboarding") ? Login.routeName : '/',
+          initialRoute: Prefs.getBool("visited_onboarding")
+              ? SplashScreen.routeName
+              : '/',
           routes: AppRoutes.appRoutes,
         ),
       ),

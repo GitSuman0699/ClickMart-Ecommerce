@@ -1,15 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_project/auth/authentication_service.dart';
 import 'package:firebase_project/home/home_screen.dart';
 import 'package:firebase_project/login/phone_screen.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatelessWidget {
+  static String routeName = 'splash';
   const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: FirebaseAuth.instance.authStateChanges(),
+      stream: AuthenticationService.instance.currentUser,
+
+      // FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           // check is user logged in or not
