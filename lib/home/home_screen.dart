@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_project/Notifications/notifications.dart';
 import 'package:firebase_project/Product/product.dart';
 import 'package:firebase_project/catalogue/catalogue.dart';
 import 'package:firebase_project/dummy/dummy_data.dart';
@@ -13,6 +15,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_carousel_slider/carousel_slider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -144,7 +147,12 @@ class _HomeState extends State<HomeScreen> {
         leadingIcon: Icons.menu,
         leadingOnTap: () {},
         trailingIcon: Icons.notifications_none_outlined,
-        trailingOnTap: () {
+        trailingOnTap: () async {
+          String? bearer =
+              await FirebaseAuth.instance.currentUser!.getIdToken();
+          print(bearer);
+          Map<String, dynamic> decodedToken = JwtDecoder.decode(bearer!);
+          print(decodedToken);
           // Navigator.of(context).pushNamed(NotificationScreen.routeName);
         },
         scaffoldKey: _key,

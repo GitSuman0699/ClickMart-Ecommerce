@@ -46,7 +46,7 @@ class Profile extends StatelessWidget {
                   ),
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.pushReplacementNamed(context, SignUp.routeName);
+                      Navigator.pushNamed(context, SignUp.routeName);
                     },
                     child: const Icon(
                       Icons.edit_outlined,

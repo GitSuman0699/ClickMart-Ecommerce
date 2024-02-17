@@ -9,14 +9,13 @@ import 'login/login_controller.dart';
 
 class AuthenticationService {
   static AuthenticationService get instance => AuthenticationService();
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  Stream<User?> get currentUser => _auth.authStateChanges();
+  final FirebaseAuth auth = FirebaseAuth.instance;
 
   // Sign up with email and password
   Future<UserCredential> signUpWithEmailAndPassword(
       String email, String password) async {
     try {
-      final response = await _auth.createUserWithEmailAndPassword(
+      final response = await auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -32,7 +31,7 @@ class AuthenticationService {
   Future<UserCredential> signInWithEmailAndPassword(
       String email, String password) async {
     try {
-      final response = await _auth.signInWithEmailAndPassword(
+      final response = await auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -49,17 +48,18 @@ class AuthenticationService {
       required WidgetRef ref,
       required BuildContext context}) async {
     try {
-      await _auth.verifyPhoneNumber(
+      await auth.verifyPhoneNumber(
         forceResendingToken: ref.read(resendTokenProvider) == 0
             ? null
             : ref.read(resendTokenProvider),
         phoneNumber: "+91$phoneNumber",
         timeout: const Duration(seconds: 30),
         verificationCompleted: (PhoneAuthCredential credential) async {
-          await _auth.signInWithCredential(credential);
+          await auth.signInWithCredential(credential);
         },
         verificationFailed: (FirebaseAuthException e) {
-          AppFirebaseAuthException(e.code, context);
+          final exception = AppFirebaseAuthException(e.code);
+          DialogComponents.snackBar(context, exception.message);
         },
         codeSent: (String verificationId, int? resendToken) {
           ref
@@ -89,14 +89,16 @@ class AuthenticationService {
       required BuildContext context}) async {
     try {
       final response =
-          await _auth.signInWithCredential(PhoneAuthProvider.credential(
+          await auth.signInWithCredential(PhoneAuthProvider.credential(
         verificationId: verificationId,
         smsCode: otp,
       ));
       return response.user != null ? true : false;
     } on FirebaseAuthException catch (e) {
-      Future.delayed(Duration.zero);
-      throw AppFirebaseAuthException(e.code, context);
+      final exception = AppFirebaseAuthException(e.code);
+      DialogComponents.loaderStop(context);
+      DialogComponents.snackBar(context, exception.message);
+      throw exception;
     } catch (e) {
       throw e.toString(); // Return an error message
     }
@@ -129,13 +131,13 @@ class AuthenticationService {
   // Sign out
   Future signOut() async {
     await GoogleSignIn().signOut();
-    await _auth.signOut();
+    await auth.signOut();
     // User? firebaseUser;
   }
 
   // Get the current user
   User? getCurrentUser() {
-    return _auth.currentUser;
+    return auth.currentUser;
   }
 }
 
