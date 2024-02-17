@@ -5,10 +5,11 @@ import 'package:flutter/material.dart';
 class AppFirebaseAuthException implements Exception {
   /// The error code associated with the exception.
   final String code;
-  final BuildContext? context;
 
   /// Constructor that takes an error code.
-  AppFirebaseAuthException(this.code, [this.context]);
+  AppFirebaseAuthException(
+    this.code,
+  );
 
   /// Get the corresponding error message based on the error code.
   String get message {
@@ -97,8 +98,6 @@ class AppFirebaseAuthException implements Exception {
         return 'Invalid login credentials.';
       case 'invalid-phobe-number':
         return 'Phone number is invalid';
-      case 'invalid-verification-code"':
-        return DialogComponents.snackBar(context!, 'Invalid OTP');
 
       default:
         return 'An unexpected authentication error occurred. Please try again.';

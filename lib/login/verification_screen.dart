@@ -148,6 +148,7 @@ class _VerificationState extends ConsumerState<Verification> {
 
                   Navigator.pushReplacementNamed(context, SignUp.routeName);
                 } else {
+                  DialogComponents.loaderStop(context);
                   debugPrint("Invalid OTP");
                 }
               },

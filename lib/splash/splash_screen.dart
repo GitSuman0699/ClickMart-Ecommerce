@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_project/Main/main.dart';
 import 'package:firebase_project/auth/authentication_service.dart';
 import 'package:firebase_project/home/home_screen.dart';
 import 'package:firebase_project/login/phone_screen.dart';
@@ -11,14 +12,14 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: AuthenticationService.instance.currentUser,
+      stream: AuthenticationService.instance.auth.authStateChanges(),
 
       // FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           // check is user logged in or not
           if (snapshot.hasData) {
-            return const HomeScreen();
+            return const Main();
             // check if there's any error or not
           } else if (snapshot.hasError) {
             ErrorDescription("Unknown Error From Main Firebase");

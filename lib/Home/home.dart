@@ -1,3 +1,4 @@
+import 'package:firebase_project/auth/authentication_service.dart';
 import 'package:firebase_project/catalogue/catalogue.dart';
 import 'package:firebase_project/Notifications/notifications.dart';
 import 'package:firebase_project/Product/product.dart';
@@ -26,6 +27,8 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final GlobalKey<ScaffoldState> _key = GlobalKey();
+  final user = AuthenticationService.instance.auth;
+  // final token = user.currentUser();
 
   @override
   Widget build(BuildContext context) {
