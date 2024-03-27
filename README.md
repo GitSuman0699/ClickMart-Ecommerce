@@ -1,4 +1,4 @@
-# firebase_project
+# ClickMart Ecommerce
 
 A new Flutter project.
 
